@@ -1,6 +1,6 @@
 #include "header/header.h"
 
-LINK createNode(DATA data)
+LINK createNode(DATA data, int key)
 {
     LINK newNode = (LINK) malloc(sizeof(LinkedList));
 
@@ -12,7 +12,7 @@ LINK createNode(DATA data)
 
     newNode->data = data;
     newNode->next = NULL;
-
+    newNode->key = key;
     return newNode;
 }
 
@@ -20,7 +20,7 @@ void printLinkedList(LINK list)
 {
     while(list != NULL)
     {
-        printf("%s %s --> ", list->data.name, list->data.surname);
+        printf("[%03d][%s %s] --> ", list->key, list->data.name, list->data.surname);
         list = list->next;
     }
     printf("NULL");

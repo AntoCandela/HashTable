@@ -13,6 +13,7 @@ typedef struct data
 typedef struct linkedList 
 {
     DATA data;
+    int key;
     struct linkedList *next;
 } LinkedList;
 
@@ -28,7 +29,7 @@ typedef struct hashTable
 
 // FUNCTIONS
 // LINKED LIST
-LINK createNode(DATA data);
+LINK createNode(DATA data, int key);
 void printLinkedList(LINK list);
 
 // HASH TABLE
@@ -36,6 +37,7 @@ void initializeHashTable(int size, HashTable newHashTable[]);
 void printHashTable(HashTable *hashTableToPrint, int size);
 int simpleHashing(int keyValue, int tableSize);
 void insertInTable(HashTable ht[], int tableSize, int keyValue, DATA data);
-
+void printValueInHashTable(HashTable *hashTableToPrint, int tableSize, int key);
+DATA returnDataFromKey(HashTable *ht, int tableSize, int key);
 // EXCEPTION
 void exception(char exceptionCode[]);
