@@ -5,7 +5,6 @@ void initializeHashTable(int size, HashTable newHashTable[])
 
     for(int i = 0; i < size; i++)
     {
-        newHashTable[i].key = i;
         newHashTable[i].value = NULL;
     }
 

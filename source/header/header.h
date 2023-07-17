@@ -23,7 +23,6 @@ typedef LinkedList *LINK;
 
 typedef struct hashTable
 {
-    int key;
     LINK value;
 } HashTable;
 
