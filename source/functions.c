@@ -61,7 +61,7 @@ void printLinkedList(LINK list)
  * Function: initializeHashTable
  * -----------------------
  * Description:
- *   Initializes the HashTable to have all values pointing to NULL and in the case they are not NULL, they are freed
+ *   Initializes the HashTable to have all values pointing to NULL
  *
  * Parameters:
  *   ht     [HashTable*] : The Hash table to be initialized
@@ -71,31 +71,12 @@ void printLinkedList(LINK list)
  *   [void]
  *
  * Notes:
- *   This function can be used as well to free all the values in the hash table
+ *  
  */
 void initializeHashTable(HashTable ht[], int size)
 {
-    LINK previous;
-    LINK current;
-
     for(int i = 0; i < size; i++)
-    {
-        if(ht[i].value != NULL)
-        {
-            previous = ht[i].value;
-            current = ht[i].value->next;
-            while(current != NULL)
-            {
-                free(previous);
-                previous = current;
-                current = current->next;
-            }
-
-        }
-        
         ht[i].value = NULL;
-    }
-
 }
 
 /*
@@ -172,19 +153,37 @@ unsigned int hash(unsigned int key, int tableSize)
 void insertInTable(HashTable ht[], int tableSize, int key, DATA data)
 {
     int keyValue = hash(key, tableSize);
-
     LINK firstNode = NULL;
 
+    // If the list has not been yet initialized, it is the first value in given key
     if(ht[keyValue].value == NULL)
     {
         ht[keyValue].value = createNode(data, key);
         return;
     }
-
+    
+    // There has been a collision, so I have to inset the data in the Linked list tail
     firstNode = ht[keyValue].value;
+
+    // If the key is already in use, I cannot insert the value in table
+    // I have the same control outside the while loop because if the linked List contains
+    // only one value, it wouldn't check the first one as the condition is "ht[keyValue].value->next != NULL"
+    if(key == ht[keyValue].value->key)
+    {
+        exception("DUPLICATED_KEY");
+        ht[keyValue].value = firstNode;
+        return;
+    }
 
     while(ht[keyValue].value->next != NULL)
     {
+        // If the key is already in use, I cannot insert the value in table
+        if(key == ht[keyValue].value->key)
+        {
+            exception("DUPLICATED_KEY");
+            ht[keyValue].value = firstNode;
+            return;
+        }
         ht[keyValue].value = ht[keyValue].value->next;
     }
 

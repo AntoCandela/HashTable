@@ -20,6 +20,14 @@ void exception(char exceptionCode[])
 {
     if(strcmp(exceptionCode, "NULL_POINTER") == 0)
     {
-        printf("Pointer has returned NULL\n");
+        printf("Pointer has returned NULL!\n");
+        return;
     }
+
+    if(strcmp(exceptionCode, "DUPLICATED_KEY") == 0)
+    {
+        printf("You are trying to insert a value with a key that has been already used inside the table!\n");
+        return;
+    }
+
 }
