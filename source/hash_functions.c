@@ -21,14 +21,23 @@ void printHashTable(HashTable *ht, int size)
     }
 }
 
-int simpleHashing(int keyValue, int tableSize)
+unsigned int simpleHash(unsigned int keyValue, int tableSize)
 {
     return keyValue % tableSize;
 }
 
+// From stackoverflow
+unsigned int hash(unsigned int x, int tableSize) 
+{
+    x = ((x >> 16) ^ x) * 0x45d9f3b;
+    x = ((x >> 16) ^ x) * 0x45d9f3b;
+    x = (x >> 16) ^ x;
+    return x % tableSize;
+}
+
 void insertInTable(HashTable ht[], int tableSize, int key, DATA data)
 {
-    int keyValue = simpleHashing(key, tableSize);
+    int keyValue = hash(key, tableSize);
 
     LINK firstNode = NULL;
 
@@ -51,7 +60,7 @@ void insertInTable(HashTable ht[], int tableSize, int key, DATA data)
 
 void printValueInHashTable(HashTable *ht, int tableSize, int key)
 {
-    int keyValue = simpleHashing(key, tableSize);
+    int keyValue = hash(key, tableSize);
     LINK firstNode = ht[keyValue].value;
 
     while(ht[keyValue].value->key != key)
@@ -65,7 +74,7 @@ void printValueInHashTable(HashTable *ht, int tableSize, int key)
 
 DATA returnDataFromKey(HashTable *ht, int tableSize, int key)
 {
-    int keyValue = simpleHashing(key, tableSize);
+    int keyValue = hash(key, tableSize);
     LINK firstNode = ht[keyValue].value;
     DATA returnValue;
 

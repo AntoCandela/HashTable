@@ -15,7 +15,7 @@ int main(void)
 
     strcpy(data.name, "Gioele");
     strcpy(data.surname, "Ferrari");
-    insertInTable(ht, TABLE_SIZE, 123, data);
+    insertInTable(ht, TABLE_SIZE, 125, data);
 
     strcpy(data.name, "Patrizio");
     strcpy(data.surname, "Candela");
