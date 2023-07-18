@@ -26,13 +26,13 @@ unsigned int simpleHash(unsigned int keyValue, int tableSize)
     return keyValue % tableSize;
 }
 
-// From stackoverflow
-unsigned int hash(unsigned int x, int tableSize) 
+// From stackoverflow, modified
+unsigned int hash(unsigned int key, int tableSize) 
 {
-    x = ((x >> 16) ^ x) * 0x45d9f3b;
-    x = ((x >> 16) ^ x) * 0x45d9f3b;
-    x = (x >> 16) ^ x;
-    return x % tableSize;
+    key = ((key >> 16) ^ key) * 0x45d9f3b;
+    key = ((key >> 16) ^ key) * 0x45d9f3b;
+    key = (key >> 16) ^ key;
+    return key % tableSize;
 }
 
 void insertInTable(HashTable ht[], int tableSize, int key, DATA data)
