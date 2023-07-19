@@ -18,6 +18,8 @@
  */
 void exception(char exceptionCode[])
 {
+    printf("\n\tEXCEPTION OF TYPE %s:\n", exceptionCode);
+
     if(strcmp(exceptionCode, "NULL_POINTER") == 0)
     {
         printf("Pointer has returned NULL!\n");
@@ -27,6 +29,12 @@ void exception(char exceptionCode[])
     if(strcmp(exceptionCode, "DUPLICATED_KEY") == 0)
     {
         printf("You are trying to insert a value with a key that has been already used inside the table!\n");
+        return;
+    }
+
+    if(strcmp(exceptionCode, "VALUE_NOT_FOUND") == 0)
+    {
+        printf("The value searched is not inside the table!\n");
         return;
     }
 

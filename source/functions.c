@@ -225,3 +225,71 @@ DATA returnDataFromKey(HashTable ht[], int tableSize, int key)
 
     return returnValue;
 }
+
+/*
+ * Function: deleteByKey
+ * -----------------------
+ * Description:
+ *   Fetch the data from the HashTable
+ *
+ * Parameters:
+ *   ht          [HashTable] : The Hash table where the data will be deleted from
+ *   tableSize   [int] : The size of the hash table
+ *   key         [unsigned int] : The key value
+ * 
+ * Returns:
+ *   [BOOLEAN]      True -> value found and deleted | False -> Value not deleted
+ * Notes:
+ *   
+ */
+Boolean deleteByKey(HashTable ht[], int tableSize, int key)
+{
+    int keyValue = hash(key, tableSize);
+    Boolean found = False;
+    LINK del = NULL;
+    LINK firstNode = ht[keyValue].value;
+
+    if(ht[keyValue].value == NULL)
+        return False;
+    
+    // In case it is the first, I have to delete in head
+    if(ht[keyValue].value->key == key)
+    {   
+        del = ht[keyValue].value;
+        ht[keyValue].value = ht[keyValue].value->next;
+        free(del);
+        printf("Value deleted\n");
+        found = True;
+
+        if(!found)
+        {
+            exception("VALUE_NOT_FOUND");
+        }   
+
+        return found;
+    }
+
+    // Else I check inside the linked list
+    while(!found && ht[keyValue].value->next != NULL)
+    {
+        if(ht[keyValue].value->next->key == key)
+        {
+            del = ht[keyValue].value->next;
+            ht[keyValue].value->next = ht[keyValue].value->next->next;
+            free(del);
+            printf("Value deleted\n");
+            found = True;
+        }
+        else
+            ht[keyValue].value = ht[keyValue].value->next;
+    }
+
+    ht[keyValue].value = firstNode;
+
+    if(!found)
+    {
+        exception("VALUE_NOT_FOUND");
+    }
+
+    return found;
+}

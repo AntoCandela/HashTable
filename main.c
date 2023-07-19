@@ -19,6 +19,8 @@ int main(void)
     insertInTable(ht, TABLE_SIZE, 230, value);
     insertInTable(ht, TABLE_SIZE, 230, value);
 
+    deleteByKey(ht, TABLE_SIZE, 1233);
+
     printHashTable(ht, TABLE_SIZE);
     
 

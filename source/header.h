@@ -24,6 +24,24 @@
 /*************************************************
 ************ STRUCTURE DEFINITIONS ***************
 **************************************************/
+/*
+ * Typedef: boolean (enum)
+ * -----------------------
+ * Description:
+ *  Define a boolean type of true or false.
+ * 
+ * Values:
+ *   False -> 0
+ *   True  -> 1
+ * 
+ * type:
+ *   [Boolean]   
+ * 
+ * Notes:
+ *   As c does not have a bool type by default it can be useful
+ *
+ */
+typedef enum boolean {False, True} Boolean;
 
 /*
  * Typedef: data
@@ -105,5 +123,6 @@ void printHashTable(HashTable ht[], int size);
 unsigned int hash(unsigned int key, int tableSize);
 void insertInTable(HashTable ht[], int tableSize, int key, DATA data);
 DATA returnDataFromKey(HashTable ht[], int tableSize, int key);
+Boolean deleteByKey(HashTable ht[], int tableSize, int key);
 
 #endif
