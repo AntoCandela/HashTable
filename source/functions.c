@@ -246,7 +246,6 @@ Boolean deleteByKey(HashTable ht[], int tableSize, int key)
 {
     int keyValue = hash(key, tableSize);
     Boolean found = False;
-    LINK del = NULL;
     LINK firstNode = ht[keyValue].value;
 
     if(ht[keyValue].value == NULL)
@@ -254,19 +253,9 @@ Boolean deleteByKey(HashTable ht[], int tableSize, int key)
     
     // In case it is the first, I have to delete in head
     if(ht[keyValue].value->key == key)
-    {   
-        del = ht[keyValue].value;
-        ht[keyValue].value = ht[keyValue].value->next;
-        free(del);
-        printf("Value deleted\n");
-        found = True;
-
-        if(!found)
-        {
-            exception("VALUE_NOT_FOUND");
-        }   
-
-        return found;
+    {
+        deleteInHead(&ht[keyValue].value);
+        return True;
     }
 
     // Else I check inside the linked list
@@ -274,22 +263,41 @@ Boolean deleteByKey(HashTable ht[], int tableSize, int key)
     {
         if(ht[keyValue].value->next->key == key)
         {
-            del = ht[keyValue].value->next;
-            ht[keyValue].value->next = ht[keyValue].value->next->next;
-            free(del);
-            printf("Value deleted\n");
+            deleteInHead(&ht[keyValue].value->next);
             found = True;
         }
         else
             ht[keyValue].value = ht[keyValue].value->next;
     }
 
+    // get back to the head
     ht[keyValue].value = firstNode;
 
     if(!found)
-    {
         exception("VALUE_NOT_FOUND");
-    }
 
     return found;
+}
+
+/*
+ * Function: deleteInHead
+ * -----------------------
+ * Description:
+ *   Deletes in head given a linked list
+ *
+ * Parameters:
+ *   linkedList [LINK] : The Linked List where I will remove from head
+ * 
+ * Returns:
+ *   [VOID]
+ * Notes:
+ *   
+ */
+void deleteInHead(LINK *linkedList)
+{
+    LINK del = NULL;
+
+    del = *linkedList;
+    (*linkedList) = (*linkedList)->next;
+    free(del);
 }

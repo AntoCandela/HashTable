@@ -124,5 +124,6 @@ unsigned int hash(unsigned int key, int tableSize);
 void insertInTable(HashTable ht[], int tableSize, int key, DATA data);
 DATA returnDataFromKey(HashTable ht[], int tableSize, int key);
 Boolean deleteByKey(HashTable ht[], int tableSize, int key);
+void deleteInHead(LINK *linkedList);
 
 #endif
